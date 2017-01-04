@@ -4,6 +4,11 @@
 ```
 sudo mv scs /usr/local/bin/scs
 ```
+  
+for zsh  
+```
+alias scs="nocorrect scs"
+```
 
 ##  要求
 gnome-screenshotが必要です。
