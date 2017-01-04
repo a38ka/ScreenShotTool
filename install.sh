@@ -1,2 +1,2 @@
-sudo scs /usr/local/bin/scs
+sudo cp scs /usr/local/bin/scs
 

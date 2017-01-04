@@ -15,6 +15,7 @@ def ssArea(event):
     filename = datename.strftime("%Y-%m-%d-%H:%M:%S")
 
     try:
+        subprocess.run("mkdir -p $HOME/Pictures/scs", shell=True)
         subprocess.check_output('gnome-screenshot -a -f %s%s.png' % (dirname, filename), shell=True)
     except:
         print("Error")
@@ -26,6 +27,7 @@ def ssWindow(event):
     filename = datename.strftime("%Y-%m-%d-%H:%M:%S")
 
     try:
+        subprocess.run("mkdir -p $HOME/Pictures/scs", shell=True)
         subprocess.check_output('gnome-screenshot -w -d 5 -f %s%s.png' % (dirname, filename), shell=True)
     except:
         print("Error")
