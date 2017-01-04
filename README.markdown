@@ -1,5 +1,8 @@
 #   ScreenShot Tool
 
+##  開発中の画面
+![かいはつなう](cap)
+
 ##  インストール
 ```
 sudo mv scs /usr/local/bin/scs

@@ -3,22 +3,33 @@
 from tkinter import Tk, ttk
 import subprocess
 import sys
+import datetime
+
+
+dirname = "$HOME/Pictures/scs/"
+# upload = filename
 
 
 def ssArea(event):
+    datename = datetime.datetime.today()
+    filename = datename.strftime("%Y-%m-%d-%H:%M:%S")
+
     try:
-        area = subprocess.check_output('gnome-screenshot --area', shell=True)
+        subprocess.check_output('gnome-screenshot -a -f %s%s.png' % (dirname, filename), shell=True)
     except:
         print("Error")
-    print(area)
+    print(filename)
 
 
 def ssWindow(event):
+    datename = datetime.datetime.today()
+    filename = datename.strftime("%Y-%m-%d-%H:%M:%S")
+
     try:
-        wi = subprocess.check_output('gnome-screenshot -w --delay=5', shell=True)
+        subprocess.check_output('gnome-screenshot -w -d 5 -f %s%s.png' % (dirname, filename), shell=True)
     except:
         print("Error")
-    print(wi)
+    print(filename)
 
 
 def ssQuit(event):
@@ -26,6 +37,7 @@ def ssQuit(event):
 
 
 root = Tk()
+root.title("SSTool")
 lbl1 = ttk.Label(root, text="screenshot")
 btn1 = ttk.Button(root, text='Area')
 btn2 = ttk.Button(root, text='Window')
