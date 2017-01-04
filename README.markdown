@@ -3,6 +3,8 @@
 ##  インストール
 ```
 sudo mv scs /usr/local/bin/scs
+or  
+./install.sh
 ```
   
 for zsh  
