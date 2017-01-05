@@ -24,7 +24,10 @@ filename = datename.strftime("%Y-%m-%d-%H:%M:%S")
 
 def ssUpload(event):
     header = "74aefc9dcbd593d"
-    requests.post(url, "Authorization: Client-ID %s" % header)
+    body = filename
+    r = requests.post(url, body, "Authorization: Client-ID %s" % header)
+    print(r.text)
+    print("%s.png" % filename)
 
 
 def ssArea(event):
