@@ -4,18 +4,32 @@ from tkinter import Tk, ttk
 import subprocess
 import sys
 import datetime
+import requests
 
-
+global url
+global dirname
+global dtename
+global filename
+url = 'https://api.imgur.com/3/image'
 dirname = "$HOME/Pictures/scs/"
+datename = datetime.datetime.today()
+filename = datename.strftime("%Y-%m-%d-%H:%M:%S")
+
+
 # upload = filename
+# Client ID
+# 74aefc9dcbd593d
+#
+
+
+def ssUpload(event):
+    header = "74aefc9dcbd593d"
+    requests.post(url, "Authorization: Client-ID %s" % header)
 
 
 def ssArea(event):
-    datename = datetime.datetime.today()
-    filename = datename.strftime("%Y-%m-%d-%H:%M:%S")
-
     try:
-        subprocess.run("mkdir -p $HOME/Pictures/scs", shell=True)
+        subprocess.run("mkdir -p dirname", shell=True)
         subprocess.check_output('gnome-screenshot -a -f %s%s.png' % (dirname, filename), shell=True)
     except:
         print("Error")
@@ -23,8 +37,6 @@ def ssArea(event):
 
 
 def ssWindow(event):
-    datename = datetime.datetime.today()
-    filename = datename.strftime("%Y-%m-%d-%H:%M:%S")
 
     try:
         subprocess.run("mkdir -p $HOME/Pictures/scs", shell=True)
@@ -43,12 +55,15 @@ root.title("SSTool")
 lbl1 = ttk.Label(root, text="screenshot")
 btn1 = ttk.Button(root, text='Area')
 btn2 = ttk.Button(root, text='Window')
-btn3 = ttk.Button(root, text='Exit')
+btn3 = ttk.Button(root, text='Upload')
+btn4 = ttk.Button(root, text='Exit')
 btn1.bind("<Button-1>", ssArea)
 btn2.bind("<Button-1>", ssWindow)
-btn3.bind("<Button-1>", ssQuit)
+btn3.bind("<Button-1>", ssUpload)
+btn4.bind("<Button-1>", ssQuit)
 lbl1.grid()
 btn1.grid()
 btn2.grid()
 btn3.grid()
+btn4.grid()
 root.mainloop()
