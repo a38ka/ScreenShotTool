@@ -5,17 +5,20 @@ import subprocess
 import sys
 import datetime
 import requests
+import tkinter.filedialog
+import os
 
 global url
 global dirname
 global dtename
 global filename
+global checkselect
 url = 'https://api.imgur.com/3/image'
 dirname = "$HOME/Pictures/scs/"
 datename = datetime.datetime.today()
 filename = datename.strftime("%Y-%m-%d-%H:%M:%S")
-
-
+# checkselect = tkinter.StringVar()
+# checkselect.set("UnSelected")
 # upload = filename
 # Client ID
 # 74aefc9dcbd593d
@@ -53,20 +56,35 @@ def ssQuit(event):
     sys.exit()
 
 
+def ssSelect(event):
+    home = os.environ['HOME']
+    args = {
+            "initialdir": "%s/Pictures/scs/" % home,
+            "filetypes": [('画像ファイル', '*.png')]
+            }
+    print(tkinter.filedialog.askopenfilename(**args))
+#     checkselect.set("Selected")
+
+
 root = Tk()
 root.title("SSTool")
 lbl1 = ttk.Label(root, text="screenshot")
+# lbl2 = ttk.Label(root, textvariable=checkselect)
 btn1 = ttk.Button(root, text='Area')
 btn2 = ttk.Button(root, text='Window')
-btn3 = ttk.Button(root, text='Upload')
-btn4 = ttk.Button(root, text='Exit')
+btn3 = ttk.Button(root, text='Select')
+btn4 = ttk.Button(root, text='Upload')
+btn10 = ttk.Button(root, text='Exit')
 btn1.bind("<Button-1>", ssArea)
 btn2.bind("<Button-1>", ssWindow)
-btn3.bind("<Button-1>", ssUpload)
-btn4.bind("<Button-1>", ssQuit)
+btn3.bind("<Button-1>", ssSelect)
+btn4.bind("<Button-1>", ssUpload)
+btn10.bind("<Button-1>", ssQuit)
 lbl1.grid()
 btn1.grid()
 btn2.grid()
+# lbl2.grid()
 btn3.grid()
 btn4.grid()
+btn10.grid()
 root.mainloop()
