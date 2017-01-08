@@ -17,8 +17,6 @@ url = 'https://api.imgur.com/3/image'
 dirname = "$HOME/Pictures/scs/"
 datename = datetime.datetime.today()
 filename = datename.strftime("%Y-%m-%d-%H:%M:%S")
-# checkselect = tkinter.StringVar()
-# checkselect.set("UnSelected")
 # upload = filename
 # Client ID
 # 74aefc9dcbd593d
@@ -31,6 +29,7 @@ def ssUpload(event):
     r = requests.post(url, body, "Authorization: Client-ID %s" % header)
     print(r.text)
     print("%s.png" % filename)
+    lbl2.configure("UnSelected")
 
 
 def ssArea(event):
@@ -43,7 +42,6 @@ def ssArea(event):
 
 
 def ssWindow(event):
-
     try:
         subprocess.run("mkdir -p $HOME/Pictures/scs", shell=True)
         subprocess.check_output('gnome-screenshot -w -d 5 -f %s%s.png' % (dirname, filename), shell=True)
@@ -63,13 +61,13 @@ def ssSelect(event):
             "filetypes": [('画像ファイル', '*.png')]
             }
     print(tkinter.filedialog.askopenfilename(**args))
-#     checkselect.set("Selected")
+    lbl2.configure(text="Selected")
 
 
 root = Tk()
 root.title("SSTool")
 lbl1 = ttk.Label(root, text="screenshot")
-# lbl2 = ttk.Label(root, textvariable=checkselect)
+lbl2 = ttk.Label(root, text='UnSelect')
 btn1 = ttk.Button(root, text='Area')
 btn2 = ttk.Button(root, text='Window')
 btn3 = ttk.Button(root, text='Select')
@@ -83,7 +81,7 @@ btn10.bind("<Button-1>", ssQuit)
 lbl1.grid()
 btn1.grid()
 btn2.grid()
-# lbl2.grid()
+lbl2.grid()
 btn3.grid()
 btn4.grid()
 btn10.grid()
