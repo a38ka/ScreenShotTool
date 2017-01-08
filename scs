@@ -4,7 +4,7 @@ from tkinter import Tk, ttk
 import subprocess
 import sys
 import datetime
-import requests
+import pyimgur
 import tkinter.filedialog
 import os
 
@@ -13,23 +13,14 @@ global dirname
 global dtename
 global filename
 global checkselect
-url = 'https://api.imgur.com/3/image'
+url = 'https://api.imgur.com/3/upload'
 dirname = "$HOME/Pictures/scs/"
 datename = datetime.datetime.today()
 filename = datename.strftime("%Y-%m-%d-%H:%M:%S")
 # upload = filename
 # Client ID
-# 74aefc9dcbd593d
-#
-
-
-def ssUpload(event):
-    header = "74aefc9dcbd593d"
-    body = filename
-    r = requests.post(url, body, "Authorization: Client-ID %s" % header)
-    print(r.text)
-    print("%s.png" % filename)
-    lbl2.configure("UnSelected")
+client = "74aefc9dcbd593d"
+im = pyimgur.Imgur(client)
 
 
 def ssArea(event):
@@ -38,7 +29,7 @@ def ssArea(event):
         subprocess.check_output('gnome-screenshot -a -f %s%s.png' % (dirname, filename), shell=True)
     except:
         print("Error")
-    print(filename)
+    return filename
 
 
 def ssWindow(event):
@@ -47,11 +38,18 @@ def ssWindow(event):
         subprocess.check_output('gnome-screenshot -w -d 5 -f %s%s.png' % (dirname, filename), shell=True)
     except:
         print("Error")
-    print(filename)
+    return filename
 
 
-def ssQuit(event):
-    sys.exit()
+def ssUpload(event):
+    try:
+        PATH = filename
+        upimage = im.upload_image(PATH, title="scsUpload")
+        print(upimage.link)
+    except:
+        print("Error %s" % upimage)
+    print("%s.png" % filename)
+    # return lbl2.configure("UnSelected")
 
 
 def ssSelect(event):
@@ -60,8 +58,13 @@ def ssSelect(event):
             "initialdir": "%s/Pictures/scs/" % home,
             "filetypes": [('画像ファイル', '*.png')]
             }
-    print(tkinter.filedialog.askopenfilename(**args))
+    filename = tkinter.filedialog.askopenfilename(**args)
     lbl2.configure(text="Selected")
+    return filename
+
+
+def ssQuit(event):
+    sys.exit()
 
 
 root = Tk()
