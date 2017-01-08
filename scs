@@ -47,7 +47,7 @@ def ssUpload(event):
         upimage = im.upload_image(PATH, title="scsUpload")
         print(upimage.link)
     except:
-        print("Error %s" % upimage)
+        print("Error")
     print("%s.png" % filename)
     # return lbl2.configure("UnSelected")
 
